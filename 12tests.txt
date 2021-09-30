@@ -1,0 +1,29 @@
+#!/bin/sh
+# tests -- test shell script for testing the road network (must be executable)
+# Author: Douglas Jones
+# Version: 2019-11-02
+
+echo
+echo "test args<1, it ought to complain 'missing argument' and fail"
+java RoadNetwork
+read -p "Press Enter to continue"
+
+echo
+echo "test args>1, it ought to complain 'extra arguments' and not fail"
+echo "test 'cant open file' exception condition and fail"
+java RoadNetwork "nonsense file name" "random stuff" "more stuff"
+read -p "Press Enter to continue"
+
+echo
+echo "test args=1, with an empty file it can open, no output, success"
+touch testdata
+java RoadNetwork testdata
+rm -f testdata
+read -p "Press Enter to continue"
+
+echo
+echo "test args=1r, should complain about an invalid command, success?"
+echo "nonsense" > testdata
+java RoadNetwork testdata
+rm -f testdata
+read -p "Press Enter to continue"
